@@ -102,8 +102,15 @@ const dispUserInfo = (info) => {
     place.innerHTML = '' + field;
 
 }
+const showLoader =(txt)=>{
+    var load=document.querySelector("#Loader")
+    load.style.display = "block";
+    load.innerHTML=""+`${txt}`;
+}
+const hideLoader = ()=>{
+    document.querySelector("#Loader").style.display = "none";
+}
 
- 
 
 
 

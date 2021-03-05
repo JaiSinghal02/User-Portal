@@ -5,6 +5,31 @@
 Body{
     background-color: rgb(228, 182, 125);
 }
+#Loader{
+    width: 14%;
+    height: 54px;
+    background-color: rgba(213, 231, 147, 0.425);
+    font-size: 1.4rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 5%;
+    margin-left: 42%;
+    position: absolute;
+    animation: Loader 0.9s infinite alternate;
+    box-sizing: border-box;
+    padding: 11px 15px;
+    
+}
+@keyframes Loader{
+    0%{
+        background-color: rgba(213, 231, 147, 0.425);
+    }
+    100%{
+        background-color: rgba(177, 219, 24, 0.39);
+    }
+    0%{
+        background-color: rgba(213, 231, 147, 0.425);
+    }
+}
 
 .Header{
     position: sticky;
@@ -118,11 +143,20 @@ h2{
     box-sizing: border-box;
     display: none;
 }
+.Info-Form h3{
+    font-family: monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
 .Details-Form{
     display: flex;
     flex-direction: column;
     padding:10px 20px;
     padding-right: 40px;;
+    font-family: monospace;
+    font-size: 1.5rem;
 }
 .Details-Form label{
     padding:15px 2px;
@@ -136,7 +170,7 @@ h2{
     width:33%;
 }
 .Details-Form button{
-    margin-top: 15px;
+    margin-top: 20px;
     padding:5px 2px;
     width:14%;
 }

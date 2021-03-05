@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="index.css">
 </head>
 
-<body>
+<body class="Body">
+    <div id="Loader"><p>Loading....</p></div>
     <header class="Header">
         <div class="Header-Button" id="Signup">Sign Up</div>
         <div class="Header-Button" id="Signin">Sign In</div>
@@ -42,7 +43,7 @@
     <!-- On first Sign up -->
     <div class="Info-Form" id="Fill-Info-Form">
         <h3>Please fill the form below</h3>
-        <form class="Details-Form">
+        <form class="Details-Form" >
             <label for="Details-DOB">DOB:</label>
             <input type="date" id="Details-DOB" class="DOB" required />
 
@@ -69,6 +70,24 @@
     <div id="User-Info-Disp">
     </div>
 
+    <script>
+        
+    document.onreadystatechange = function() { 
+    if (document.readyState !== "complete") { 
+        document.querySelector(".Body").style.visibility= "hidden"; 
+        document.querySelector("#Loader").style.display = "block"; 
+        document.querySelector("#Loader").style.visibility = "visible"; 
+        console.log(document.readyState);
+    } else { 
+        setTimeout(()=>{
+            document.querySelector("#Loader").style.display = "none"; 
+        document.querySelector(".Body").style.visibility = "visible"; 
+        console.log(document.readyState);
+        },500)
+        
+    } 
+};
+    </script>
 
 
 

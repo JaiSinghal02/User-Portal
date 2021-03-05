@@ -6,10 +6,7 @@ auth.onAuthStateChanged(user => {
         changeUI(user);
         uid = user.uid;
         userp=user;
-        console.log("Auth changed",userp)
         var userInfo = document.querySelector('#User-Info-Disp');
-        console.log(userInfo.style.display)
-        console.log(userInfo);
         if(!(userInfo.style.display==='none')){
             getUserInfo(userp);
         }
@@ -28,6 +25,7 @@ auth.onAuthStateChanged(user => {
 const Signup = document.querySelector('#Signup-Button');
 Signup.addEventListener('click', (e) => {
     e.preventDefault();
+    showLoader("Signing Up...");
     const SignupForm = document.querySelector('#Signup-Form');
     const email = SignupForm['Signup-Email'].value;
     const password = SignupForm['Signup-Password'].value;
@@ -40,8 +38,10 @@ Signup.addEventListener('click', (e) => {
             dispInfoForm();
             var userInfo = document.querySelector('#User-Info-Disp');
             userInfo.style.display='none';
+            hideLoader();
         })
         .catch(err => {
+            hideLoader();
             if (err.message === "The email address is already in use by another account.") {
                 alert(err.message);
                 SignupForm.reset();
@@ -62,30 +62,43 @@ Signin.addEventListener('click', (e) => {
     const email = SigninForm['Signin-Email'].value;
     const password = SigninForm['Signin-Password'].value;
     //console.log(email, password);
+    showLoader("Signing in ...");
+    console.log(document.readyState);
     auth.signInWithEmailAndPassword(email, password)
         .then(res => {
             //console.log(res.user);
             closeSignIn();
             SigninForm.reset();
             getUserInfo(res.user);
+            hideLoader();
+            
             
         }
         )
         .catch(err=>{
             alert(err.message);
+            hideLoader();
         })
+        
+        
 });
 
 const Signout = document.querySelector('#Signout');
 
 Signout.addEventListener('click', (e) => {
     e.preventDefault();
+    showLoader("Signing Out...");
     auth.signOut()
         .then(() => {
             console.log("Signed out");
             dispTag();
             var userInfo = document.querySelector('#User-Info-Disp');
         userInfo.style.display = 'none';
+        hideLoader();
+        })
+        .catch(err=>{
+            alert(err.message);
+            hideLoader();
         })
 })
 
@@ -93,6 +106,7 @@ const infoForm = document.querySelector('.Details-Form');
 
 infoForm.addEventListener('submit', e => {
     e.preventDefault();
+    showLoader("Submitting...");
     //const infoForm = document.querySelector('.Details-Form');
     db.collection('User-Info').doc(uid).set({
         DOB: infoForm['Details-DOB'].value,
@@ -105,9 +119,11 @@ infoForm.addEventListener('submit', e => {
             hideInfoForm();
             getUserInfo(userp);
             infoForm.reset();
+            hideLoader();
         })
         .catch(err => {
             console.log(err.message);
             alert(err.message);
+            hideLoader();
         })
 })
