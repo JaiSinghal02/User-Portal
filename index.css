@@ -5,6 +5,7 @@
 Body{
     background-color: rgb(228, 182, 125);
 }
+
 .Header{
     position: sticky;
     margin-bottom:30px;
@@ -143,11 +144,11 @@ h2{
     display: block;
 }
 
-#User-Info{
+#User-Info-Disp{
     background-color: #d07b3f;
     width: 60%;
     height: 400px;
-    display: flex;
+    
     flex-direction: column;
     box-sizing: border-box;
     margin: 80px 320px;

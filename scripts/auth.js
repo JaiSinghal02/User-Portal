@@ -1,13 +1,27 @@
 var uid = null;
 var userp=null;
 auth.onAuthStateChanged(user => {
+    
     if (user) {
         changeUI(user);
         uid = user.uid;
         userp=user;
+        console.log("Auth changed",userp)
+        var userInfo = document.querySelector('#User-Info-Disp');
+        console.log(userInfo.style.display)
+        console.log(userInfo);
+        if(!(userInfo.style.display==='none')){
+            getUserInfo(userp);
+        }
+        
     }
     else {
+        var userInfo = document.querySelector('#User-Info-Disp');
+        userInfo.style.display='none';
+        console.log(userInfo.style.display)
         changeUI(null);
+        uid=null;
+        userp=null;
     }
 })
 
@@ -24,6 +38,8 @@ Signup.addEventListener('click', (e) => {
             SignupForm.reset();
             closeSignUp();
             dispInfoForm();
+            var userInfo = document.querySelector('#User-Info-Disp');
+            userInfo.style.display='none';
         })
         .catch(err => {
             if (err.message === "The email address is already in use by another account.") {
@@ -51,14 +67,8 @@ Signin.addEventListener('click', (e) => {
             //console.log(res.user);
             closeSignIn();
             SigninForm.reset();
-            db.collection('User-Info').doc(res.user.uid).get()
-                .then(snapshot => {
-                    dispUserInfo(snapshot.data());
-
-                })
-                .catch(err => {
-                    alert(err.message);
-                })
+            getUserInfo(res.user);
+            
         }
         )
         .catch(err=>{
@@ -74,14 +84,16 @@ Signout.addEventListener('click', (e) => {
         .then(() => {
             console.log("Signed out");
             dispTag();
+            var userInfo = document.querySelector('#User-Info-Disp');
+        userInfo.style.display = 'none';
         })
 })
 
-const submitButton = document.querySelector('#Submit-Button');
+const infoForm = document.querySelector('.Details-Form');
 
-submitButton.addEventListener('click', e => {
+infoForm.addEventListener('submit', e => {
     e.preventDefault();
-    const infoForm = document.querySelector('.Details-Form');
+    //const infoForm = document.querySelector('.Details-Form');
     db.collection('User-Info').doc(uid).set({
         DOB: infoForm['Details-DOB'].value,
         'BirthPlace': infoForm['Details-BirthPlace'].value,
@@ -92,8 +104,10 @@ submitButton.addEventListener('click', e => {
             console.log("Info added...");
             hideInfoForm();
             getUserInfo(userp);
+            infoForm.reset();
         })
         .catch(err => {
             console.log(err.message);
+            alert(err.message);
         })
 })

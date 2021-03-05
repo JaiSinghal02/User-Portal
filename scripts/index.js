@@ -29,8 +29,6 @@ const closeSignIn = () => {
     var SignupModal = document.querySelector('#Signup-Modal');
     SignupModal.classList.remove('Signup-Disp');
 
-    var userInfo = document.querySelector('#User-Info');
-    userInfo.style.display = 'flex';
 }
 const dispInfoForm = () => {
     var InfoForm = document.querySelector("#Fill-Info-Form");
@@ -44,15 +42,17 @@ const getUserInfo=(user)=>{
     db.collection('User-Info').doc(user.uid).get()
     .then(snapshot => {
         if(typeof snapshot !== "undefined") {
-        dispUserInfo(snapshot.data());
-        var userInfo = document.querySelector('#User-Info');
+            
+        var userInfo = document.querySelector('#User-Info-Disp');
         userInfo.style.display = 'flex';
         document.querySelector("#Signout").style.display = 'block';
+        dispUserInfo(snapshot.data());
         }
         
 
     })
     .catch(err => {
+        console.log(err);
         if(typeof snapshot!== "undefined"){
             alert(err.message);
             document.querySelector("#Signout").style.display = 'block';
@@ -67,7 +67,7 @@ const changeUI = (user) => {
         document.querySelector("#Signin").style.display = 'none';
         
         document.querySelector('.Info').style.display = 'none';
-        getUserInfo(user);
+        //getUserInfo(user);
 
     }
     else {
@@ -79,23 +79,31 @@ const changeUI = (user) => {
 
 const dispTag = () => {
     document.querySelector('.Info').style.display = 'block';
-    var userInfo=document.querySelector('#User-Info');
+    var userInfo=document.querySelector('#User-Info-Disp');
     userInfo.style.display='none';
 }
 
 const dispUserInfo = (info) => {
     console.log("info received")
-    const place = document.getElementById("User-Info")
-    var field = `
+    const place = document.getElementById("User-Info-Disp")
+    if(typeof info !== 'undefined'){
+        var field = `
     <p class="Info-Tag">User Info</p>
     <div class="Info-DOB">DOB: ${info.DOB}</div>
     <div class="Info-Gender">Gender: ${info.Gender}</div>
     <div class="Info-BirthPlace">Place of Birth: ${info.BirthPlace}</div>
     <div class="Info-PhoneNumber">Phone number :${info.PhoneNumber}</div>
     `;
+    }
+    else{
+        var field=`<p class="Info-Tag" style="font-size:2rem;padding-left:17%;" >No Information to Display</p>`
+    }
+    
     place.innerHTML = '' + field;
 
 }
+
+ 
 
 
 
