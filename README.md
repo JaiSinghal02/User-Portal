@@ -12,12 +12,11 @@
 <br/>
 <br/>
 <br/>
-<h4><pre>New users move to Sign-up page                              Exisiting users move to Log-in page</pre></h4>
-<div >
-<img src="images/readme/User-Portal%20Images/Sign Up window.png" width="450"  >
-  &nbsp;
-<img src="images/readme/User-Portal%20Images/Sign in window.png" width="450"  >
-</div>  
+<h4>New users move to Sign-up page</h4>                            
+<img src="images/readme/User-Portal%20Images/Sign Up window.png" width="400"  >
+<h4>Exisiting users move to Sign-in page</h4>
+<img src="images/readme/User-Portal%20Images/Sign in window.png" width="400"  >
+
 
 <br/>
 <br/>
